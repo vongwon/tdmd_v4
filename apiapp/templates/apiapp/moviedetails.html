@@ -1,0 +1,78 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Search YouTube</title>
+    <!-- Bootstrap core CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="{% static 'apiapp/album.css' %}" rel="stylesheet">
+  </head>
+  <body>
+
+<main role="main">
+
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading">Movie details</h1>
+      <p class="lead text-muted">Get the top nine results on TMDB for your query!</p>
+      <form method="POST">
+        <div class="input-group mb-3">
+            {% csrf_token %}
+            <input type="text" name="searchid" class="form-control" aria-label="movieId">
+        </div>
+        <p>
+          <button type="submit" name="submit" value="search" class="btn btn-primary my-2">Id Search</button>
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <div class="album py-5 bg-light">
+    <div class="container">
+      <div class="row">
+        {% for x in movies_details %}
+        <div class="col-md-2 col-lg-8">
+          <div class="card mb-4 shadow-sm">
+            <img class="bd-placeholder-img card-img-top" width="100%" height="100%" src="{{ x.thumbnail }}" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"></img>
+            <div class="card-body">
+              <h4>{{ x.title }}</h4>
+              <p>TMBD Id: {{ x.imdb_id }}</p>
+              <p>IMDB Id: {{ x.imdb_id }}</p>
+              <p>{{ x.released }}</p>
+              <p>{{ x.runtime }} min</p>
+              <p>{{ x.overview }}</p>
+              <p>{{ x.genres_ids }}</p>
+              <div class="d-flex justify-content-between align-items-center">
+
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+
+</main>
+</body>
+</html>
